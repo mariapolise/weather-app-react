@@ -1,7 +1,7 @@
-import logo from './logo.svg';
+
 import './App.css';
 import Test from "./Test";
-import axios from "axios";
+
 
 function App() {
   return (
