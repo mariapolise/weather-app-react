@@ -1,0 +1,7 @@
+.App .current-city {
+  font-size: 3rem;
+  text-align: center;
+  text-transform: capitalize;
+  position: relative;
+  top: 1.8rem;
+}

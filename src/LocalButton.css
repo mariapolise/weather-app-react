@@ -1,0 +1,9 @@
+.App .local-button-bar {
+  padding: 0.1rem;
+}
+.App .local-button {
+  display: inline;
+  position: relative;
+  vertical-align: top;
+  top: 0.2rem;
+}

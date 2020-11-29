@@ -1,0 +1,7 @@
+.App .weather-alert {
+  background-color: rgb(234, 168, 152);
+  font-size: 0.5rem;
+  margin: 2.5rem 0.2rem 0.6rem;
+  padding: 0.2rem;
+  border-style: solid;
+}

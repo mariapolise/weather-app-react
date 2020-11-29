@@ -1,0 +1,8 @@
+.App .current-icon {
+  text-align: center;
+  font-size: 7.5rem;
+  position: relative;
+  width: 7rem;
+  left: 2rem;
+  top: 1.5rem;
+}

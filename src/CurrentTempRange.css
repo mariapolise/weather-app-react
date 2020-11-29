@@ -1,0 +1,7 @@
+.App .current-temp-range {
+  position: relative;
+  top: 2.3rem;
+  left: 1rem;
+  font-size: 1.3rem;
+  text-transform: capitalize;
+}
