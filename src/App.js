@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from "./Form";
 import LocalButton from "./LocalButton";
 import ToggleUnitBar from "./ToggleUnitBar";
@@ -25,6 +26,7 @@ export default function App() {
   };
   return (
     <div className="App">
+      <div className="container">
       <h1>
         <div className="row d-flex flex-nowrap">
           <div className="col col-12">
@@ -72,6 +74,7 @@ export default function App() {
         </a>
         | by Maria Polise
       </h3>
+      </div>
     </div>
   );
 }
