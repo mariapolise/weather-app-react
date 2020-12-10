@@ -1,6 +1,7 @@
 .App .toggle-unit-bar {
   position: relative;
-  left: 5.5rem;
+  left: 10.5rem;
+  font-size: 1.5rem;
 }
 
 .App .toggle-unit {
