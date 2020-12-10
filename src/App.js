@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CurrentCity from "./CurrentCity";
@@ -10,7 +11,7 @@ import WeatherAlert from "./WeatherAlert";
 import Forecast from "./Forecast";
 
 export default function App() {
-  let data = {
+    let data = {
     city: "Philadelphia",
     temperature: 20,
     date: "Monday 10:00",
@@ -21,7 +22,15 @@ export default function App() {
     tempMax: 21,
     tempMin: 18
   };
-  return (
+  const [ready, setReady] = useState (false);
+  const [weather, setWeather] = useState(null);
+  function showCityData(response){
+    setReady(true);
+    setWeather (response.data.main.temp);
+    console.log (response.data)
+  }
+  if (ready){
+      return (
     <div className="App">
       <div className="container">
       <h1>
@@ -93,4 +102,16 @@ export default function App() {
       </div>
     </div>
   );
+}
+else {
+  let city = `q=Philadelphia`;
+  let units = `metric`;
+  const apiKey = `aff49264e3b244a0afae2d8202fca638`;
+  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?`;
+    axios
+    .get(`${apiUrl}${city}&appid=${apiKey}&units=${units}`)
+    .then(showCityData);
+  return "Loading";
+
+}
 }
