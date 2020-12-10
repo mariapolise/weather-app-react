@@ -1,9 +1,6 @@
 import React from "react";
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Form from "./Form";
-import LocalButton from "./LocalButton";
-import ToggleUnitBar from "./ToggleUnitBar";
 import CurrentCity from "./CurrentCity";
 import CurrentTemp from "./CurrentTemp";
 import CurrentConditions from "./CurrentConditions";
@@ -31,9 +28,28 @@ export default function App() {
         <div className="row d-flex flex-nowrap">
           <div className="col col-12">
             <div className="row d-flex flex-nowrap">
-              <Form />
-              <LocalButton />
-              <ToggleUnitBar />
+                  <div className="col-sm-6.5 city-search">
+      <span className="search-bar">
+        <form className="city-search">
+          <input type="text" name="city-input" className="city-input" autoFocus="on"/>
+          <input
+            type="submit"
+            className="btn btn-secondary"
+            value="Search"
+            autoComplete="off"
+          />
+        </form>
+      </span>
+    </div>
+    <div className="col-2.5 local-button-bar">
+      <button type="submit" className="btn btn-secondary local-button">
+        Local
+      </button>
+    </div>
+    <div className="col col-3  toggle-unit-bar">
+      <button className="toggle-unit">°C</button>/
+      <button className="toggle-unit">°F</button>
+    </div>
             </div>
 
             <div className="row d-flex flex-nowrap">
