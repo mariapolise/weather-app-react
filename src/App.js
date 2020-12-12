@@ -11,22 +11,22 @@ import WeatherAlert from "./WeatherAlert";
 import Forecast from "./Forecast";
 
 export default function App() {
-    let data = {
-    city: "Philadelphia",
-    temperature: 20,
+  const [ready, setReady] = useState (false);
+  const [data, setData] = useState({});
+  function showCityData(response){
+    setReady(true);
+    setData ({
+    city: response.data.name,
+    temperature: Math.round(response.data.main.temp),
     date: "Monday 10:00",
-    conditions: "Sunny",
+    conditions: response.data.weather[0].description,
     imgUrl: "http://simpleicon.com/wp-content/uploads/sun.png",
     humidity: 0,
     wind: 10,
-    tempMax: 21,
-    tempMin: 18
-  };
-  const [ready, setReady] = useState (false);
-  const [weather, setWeather] = useState(null);
-  function showCityData(response){
-    setReady(true);
-    setWeather (response.data.main.temp);
+    tempMax: Math.round(response.data.main.temp_max),
+    tempMin: Math.round(response.data.main.temp_min),
+  });
+    
     console.log (response.data)
   }
   if (ready){
