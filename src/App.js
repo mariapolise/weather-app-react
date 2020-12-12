@@ -11,25 +11,27 @@ import WeatherAlert from "./WeatherAlert";
 import Forecast from "./Forecast";
 
 export default function App() {
-  const [ready, setReady] = useState (false);
-  const [data, setData] = useState({});
+
+  const [data, setData] = useState({ ready: false});
   function showCityData(response){
-    setReady(true);
+    console.log (response.data)
     setData ({
+    ready: true,  
     city: response.data.name,
     temperature: Math.round(response.data.main.temp),
-    date: "Monday 10:00",
+    date: "Wednesday 2:53pm",
     conditions: response.data.weather[0].description,
-    imgUrl: "http://simpleicon.com/wp-content/uploads/sun.png",
-    humidity: 0,
-    wind: 10,
+    //imgUrl: "http://simpleicon.com/wp-content/uploads/sun.png",
+    icon: response.data.weather[0].icon,
+    humidity: response.data.main.humidity,
+    wind: response.data.wind.speed,
     tempMax: Math.round(response.data.main.temp_max),
     tempMin: Math.round(response.data.main.temp_min),
   });
     
-    console.log (response.data)
+    
   }
-  if (ready){
+  if (data.ready){
       return (
     <div className="App">
       <div className="container">
@@ -76,7 +78,7 @@ export default function App() {
               <div className="col-6">
                 <div className="row d-flex flex-nowrap">
                   <CurrentTemp temperature={data.temperature} />
-                  <CurrentIcon icon={data.imgUrl} />
+                  <CurrentIcon icon={data.icon} />
                 </div>
               </div>
             </div>
