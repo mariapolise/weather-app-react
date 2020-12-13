@@ -13,6 +13,7 @@ import PageDate from "./PageDate";
 
 export default function App(props) {
   const [data, setData] = useState({ ready: false});
+  let [city, setCity] = useState("Philadelphia");
   function showCityData(response){
     setData ({
     ready: true,  
@@ -28,7 +29,50 @@ export default function App(props) {
     tempMin: Math.round(response.data.main.temp_min),
   }); 
   }
-  
+
+  function cityInput(event){
+    event.preventDefault();
+    getCityData(cityInput.value);
+  };
+
+  function getCityData(response) {
+  let units = `metric`;
+  const apiKey = `aff49264e3b244a0afae2d8202fca638`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?`;
+    axios
+    .get(`${apiUrl}q=${city}&appid=${apiKey}&units=${units}`)
+    .then(showCityData);
+
+  //apiUrl = `https://api.openweathermap.org/data/2.5/forecast?`;
+ // axios
+   // .get(`${apiUrl}${city}&appid=${apiKey}&units=${units}`)
+    //.then(showForecast);
+}
+function getLocation() {
+  navigator.geolocation.getCurrentPosition(getLocalData);
+}
+
+function getLocalData(position) {
+  let latitude = `lat=${position.coords.latitude}`;
+  let longitude = `lon=${position.coords.longitude}`;
+  let units = `metric`;
+  let apiKey = `aff49264e3b244a0afae2d8202fca638`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?`;
+  axios
+    .get(`${apiUrl}${latitude}&${longitude}&appid=${apiKey}&units=${units}`)
+    .then(showCityData);
+
+  //apiUrl = `https://api.openweathermap.org/data/2.5/forecast?`;
+  //axios
+   // .get(`${apiUrl}${latitude}&${longitude}&appid=${apiKey}&units=${units}`)
+    //.then(showForecast);
+}
+
+  function changeCity(event){
+    setCity(event.target.value)
+
+  }
+
   if (data.ready){
       return (
     <div className="App">
@@ -39,8 +83,10 @@ export default function App(props) {
             <div className="row d-flex flex-nowrap">
                   <div className="col-sm-6.5 city-search">
       <span className="search-bar">
-        <form className="city-search">
-          <input type="text" name="city-input" className="city-input" autoFocus="on"/>
+        <form className="city-search" onSubmit={cityInput}>
+          <input type="text" name="city-input" 
+          className="city-input" autoFocus="on" 
+          onChange={changeCity}/>
           <input
             type="submit"
             className="btn btn-secondary"
@@ -51,7 +97,7 @@ export default function App(props) {
       </span>
     </div>
     <div className="col-2.5 local-button-bar">
-      <button type="submit" className="btn btn-secondary local-button">
+      <button type="submit" className="btn btn-secondary local-button" onClick={getLocation}>
         Local
       </button>
     </div>
@@ -102,12 +148,11 @@ export default function App(props) {
   );
 }
 else {
-  let city = `q=Philadelphia`;
   let units = `metric`;
   const apiKey = `aff49264e3b244a0afae2d8202fca638`;
-  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?`;
     axios
-    .get(`${apiUrl}${city}&appid=${apiKey}&units=${units}`)
+    .get(`${apiUrl}q=${city}&appid=${apiKey}&units=${units}`)
     .then(showCityData);
   return "Loading";
 
