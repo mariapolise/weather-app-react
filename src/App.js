@@ -13,7 +13,7 @@ import PageDate from "./PageDate";
 
 export default function App(props) {
   const [data, setData] = useState({ ready: false});
-  let [city, setCity] = useState("Philadelphia");
+  let [city, setCity] = useState(null);
   function showCityData(response){
     setData ({
     ready: true,  
@@ -148,12 +148,17 @@ function getLocalData(position) {
   );
 }
 else {
+  navigator.geolocation.getCurrentPosition(defaultLocal);
+  function defaultLocal(position){
   let units = `metric`;
+  let latitude = `lat=${position.coords.latitude}`;
+  let longitude = `lon=${position.coords.longitude}`;
   const apiKey = `aff49264e3b244a0afae2d8202fca638`;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?`;
     axios
-    .get(`${apiUrl}q=${city}&appid=${apiKey}&units=${units}`)
-    .then(showCityData);
+    .get(`${apiUrl}${latitude}&${longitude}&appid=${apiKey}&units=${units}`)
+    .then(showCityData);}
+
   return "Loading";
 
 }
