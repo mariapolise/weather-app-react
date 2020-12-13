@@ -9,17 +9,16 @@ import CurrentTempRange from "./CurrentTempRange";
 import CurrentIcon from "./CurrentIcon";
 import WeatherAlert from "./WeatherAlert";
 import Forecast from "./Forecast";
+import PageDate from "./PageDate";
 
-export default function App() {
-
+export default function App(props) {
   const [data, setData] = useState({ ready: false});
   function showCityData(response){
-    console.log (response.data)
     setData ({
     ready: true,  
     city: response.data.name,
     temperature: Math.round(response.data.main.temp),
-    date: "Wednesday 2:53pm",
+    date: new Date(response.data.dt * 1000),
     conditions: response.data.weather[0].description,
     //imgUrl: "http://simpleicon.com/wp-content/uploads/sun.png",
     icon: response.data.weather[0].icon,
@@ -27,10 +26,9 @@ export default function App() {
     wind: response.data.wind.speed,
     tempMax: Math.round(response.data.main.temp_max),
     tempMin: Math.round(response.data.main.temp_min),
-  });
-    
-    
+  }); 
   }
+  
   if (data.ready){
       return (
     <div className="App">
@@ -88,9 +86,7 @@ export default function App() {
           </div>
         </div>
       </h1>
-      <h3 id="page-date" className="page-date">
-        {data.date}
-      </h3>
+      <PageDate date={data.date}/>
       <br />
       <h3 className="signature">
         <a
