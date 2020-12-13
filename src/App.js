@@ -11,8 +11,9 @@ import WeatherAlert from "./WeatherAlert";
 import Forecast from "./Forecast";
 import PageDate from "./PageDate";
 
-export default function App(props) {
+export default function App() {
   const [data, setData] = useState({ ready: false});
+  const [unit, setUnit] = useState("celcius");
   let [city, setCity] = useState(null);
   function showCityData(response){
     setData ({
@@ -27,15 +28,24 @@ export default function App(props) {
     wind: response.data.wind.speed,
     tempMax: Math.round(response.data.main.temp_max),
     tempMin: Math.round(response.data.main.temp_min),
+
   }); 
   }
+  function toggleFahrenheit(event) {
+    event.preventDefault();
+    setUnit("fahrenheit");
+  }
+  function toggleCelcius(event) {
+    event.preventDefault();
+    setUnit("celcius");
+  };
 
   function cityInput(event){
     event.preventDefault();
     getCityData(cityInput.value);
   };
 
-  function getCityData(response) {
+  function getCityData() {
   let units = `metric`;
   const apiKey = `aff49264e3b244a0afae2d8202fca638`;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?`;
@@ -73,6 +83,7 @@ function getLocalData(position) {
 
   }
 
+
   if (data.ready){
       return (
     <div className="App">
@@ -102,8 +113,8 @@ function getLocalData(position) {
       </button>
     </div>
     <div className="col col-3  toggle-unit-bar">
-      <button className="toggle-unit">°C</button>/
-      <button className="toggle-unit">°F</button>
+      <button className="toggle-unit" onClick={toggleCelcius}>°C</button>/
+      <button className="toggle-unit" onClick={toggleFahrenheit}>°F</button>
     </div>
             </div>
 
@@ -116,12 +127,14 @@ function getLocalData(position) {
                   <CurrentTempRange
                     tempMax={data.tempMax}
                     tempMin={data.tempMin}
+                    unit={unit}
+                    
                   />
                 </div>
               </div>
               <div className="col-6">
                 <div className="row d-flex flex-nowrap">
-                  <CurrentTemp temperature={data.temperature} />
+                  <CurrentTemp temperature={data.temperature} unit={unit}/>
                   <CurrentIcon icon={data.icon} />
                 </div>
               </div>
