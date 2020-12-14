@@ -52,7 +52,7 @@ export default function App() {
     thirdDayIcon: response.data.list[23].weather[0].icon,
     thirdDayDescription: response.data.list[23].weather[0].description,
     thirdDay: response.data.list[23].dt * 1000,
-        forthDayMax: Math.round(response.data.list[31].main.temp_max),
+        fourthDayMax: Math.round(response.data.list[31].main.temp_max),
     fourthDayMin: Math.round(response.data.list[31].main.temp_min),
     fourthDayIcon: response.data.list[31].weather[0].icon,
     fourthDayDescription: response.data.list[31].weather[0].description,
