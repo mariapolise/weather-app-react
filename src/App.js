@@ -33,10 +33,10 @@ export default function App() {
   }
   const [forecastData, setForecastData] = useState({ready: false});
   function showForecastData(response){
-    console.log(response);
+    
     setForecastData({
     ready: data.ready,  
-    day: "Monday",
+   
         firstDayMax: Math.round(response.data.list[7].main.temp_max),
     firstDayMin: Math.round(response.data.list[7].main.temp_min),
     firstDayIcon: response.data.list[7].weather[0].icon,
