@@ -13,16 +13,16 @@ import PageDate from "./PageDate";
 
 export default function App() {
   const [data, setData] = useState({ ready: false});
-  const [unit, setUnit] = useState("celcius");
   let [city, setCity] = useState(null);
+  let [unit, setUnit] = useState("celcius");
   function showCityData(response){
+    
     setData ({
     ready: true,  
     city: response.data.name,
     temperature: Math.round(response.data.main.temp),
     date: new Date(response.data.dt * 1000),
     conditions: response.data.weather[0].description,
-    //imgUrl: "http://simpleicon.com/wp-content/uploads/sun.png",
     icon: response.data.weather[0].icon,
     humidity: response.data.main.humidity,
     wind: response.data.wind.speed,
@@ -31,6 +31,38 @@ export default function App() {
 
   }); 
   }
+  const [forecastData, setForecastData] = useState({ready: false});
+  function showForecastData(response){
+    console.log(response);
+    setForecastData({
+    ready: data.ready,  
+    day: "Monday",
+        firstDayMax: Math.round(response.data.list[7].main.temp_max),
+    firstDayMin: Math.round(response.data.list[7].main.temp_min),
+    firstDayIcon: response.data.list[7].weather[0].icon,
+    firstDayDescription: response.data.list[7].weather[0].description,
+        secondDayMax: Math.round(response.data.list[15].main.temp_max),
+    secondDayMin: Math.round(response.data.list[15].main.temp_min),
+    secondDayIcon: response.data.list[15].weather[0].icon,
+    secondDayDescription: response.data.list[15].weather[0].description,
+    secondDay: response.data.list[15].dt * 1000,
+        thirdDayMax: Math.round(response.data.list[23].main.temp_max),
+    thirdDayMin: Math.round(response.data.list[23].main.temp_min),
+    thirdDayIcon: response.data.list[23].weather[0].icon,
+    thirdDayDescription: response.data.list[23].weather[0].description,
+        forthDayMax: Math.round(response.data.list[31].main.temp_max),
+    forthDayMin: Math.round(response.data.list[31].main.temp_min),
+    forthDayIcon: response.data.list[31].weather[0].icon,
+    forthDayDescription: response.data.list[31].weather[0].description,
+        fifthDayMax: Math.round(response.data.list[39].main.temp_max),
+    fifthDayMin: Math.round(response.data.list[39].main.temp_min),
+    fifthDayIcon: response.data.list[39].weather[0].icon,
+    fifthDayDescription: response.data.list[39].weather[0].description,
+
+  });
+
+};
+
   function toggleFahrenheit(event) {
     event.preventDefault();
     setUnit("fahrenheit");
@@ -53,10 +85,10 @@ export default function App() {
     .get(`${apiUrl}q=${city}&appid=${apiKey}&units=${units}`)
     .then(showCityData);
 
-  //apiUrl = `https://api.openweathermap.org/data/2.5/forecast?`;
- // axios
-   // .get(`${apiUrl}${city}&appid=${apiKey}&units=${units}`)
-    //.then(showForecast);
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?`;
+  axios
+    .get(`${apiUrl}q=${city}&appid=${apiKey}&units=${units}`)
+    .then(showForecastData);
 }
 function getLocation() {
   navigator.geolocation.getCurrentPosition(getLocalData);
@@ -72,10 +104,10 @@ function getLocalData(position) {
     .get(`${apiUrl}${latitude}&${longitude}&appid=${apiKey}&units=${units}`)
     .then(showCityData);
 
-  //apiUrl = `https://api.openweathermap.org/data/2.5/forecast?`;
-  //axios
-   // .get(`${apiUrl}${latitude}&${longitude}&appid=${apiKey}&units=${units}`)
-    //.then(showForecast);
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?`;
+  axios
+    .get(`${apiUrl}${latitude}&${longitude}&appid=${apiKey}&units=${units}`)
+    .then(showForecastData);
 }
 
   function changeCity(event){
@@ -141,7 +173,14 @@ function getLocalData(position) {
             </div>
             <br />
             <WeatherAlert humidity={data.humidity} wind={data.wind} />
-            <Forecast />
+             <div className="row d-flex flex-nowrap">
+            <Forecast icon={forecastData.firstDayIcon} max={forecastData.firstDayMax} min={forecastData.firstDayMin} description={forecastData.firstDayDescription} day={forecastData.day} unit={unit}/>
+            <Forecast icon={forecastData.secondDayIcon} max={forecastData.secondDayMax} min={forecastData.secondDayMin} description={forecastData.secondDayDescription} day={forecastData.secondDay} unit={unit}/>
+            <Forecast icon={forecastData.thirdDayIcon} max={forecastData.thirdDayMax} min={forecastData.thirdDayMin} description={forecastData.thirdDayDescription} day={forecastData.day} unit={unit}/>
+            <Forecast icon={forecastData.forthDayIcon} max={forecastData.forthDayMax} min={forecastData.forthDayMin} description={forecastData.forthDayDescription} day={forecastData.day} unit={unit}/>
+            <Forecast icon={forecastData.fifthDayIcon} max={forecastData.fifthDayMax} min={forecastData.fifthDayMin} description={forecastData.fifthDayDescription} day={forecastData.day} unit={unit}/>
+
+            </div>
           </div>
         </div>
       </h1>
@@ -170,7 +209,14 @@ else {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?`;
     axios
     .get(`${apiUrl}${latitude}&${longitude}&appid=${apiKey}&units=${units}`)
-    .then(showCityData);}
+    .then(showCityData);
+
+     apiUrl = `https://api.openweathermap.org/data/2.5/forecast?`;
+  axios
+    .get(`${apiUrl}${latitude}&${longitude}&appid=${apiKey}&units=${units}`)
+    .then(showForecastData); 
+
+  }
 
   return "Loading";
 
