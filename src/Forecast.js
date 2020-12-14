@@ -2,7 +2,7 @@ import React from "react";
 import "./Forecast.css";
 
 export default function Forecast(props) {
-  let day = props.day;
+  let day = "5 Day Forecast";
 
   if (props.unit==="celcius"){
   return (

@@ -35,8 +35,8 @@ export default function App() {
   function showForecastData(response){
     
     setForecastData({
-    ready: data.ready,  
-   
+    ready: data.ready,
+
         firstDayMax: Math.round(response.data.list[7].main.temp_max),
     firstDayMin: Math.round(response.data.list[7].main.temp_min),
     firstDayIcon: response.data.list[7].weather[0].icon,
