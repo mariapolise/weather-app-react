@@ -41,6 +41,7 @@ export default function App() {
     firstDayMin: Math.round(response.data.list[7].main.temp_min),
     firstDayIcon: response.data.list[7].weather[0].icon,
     firstDayDescription: response.data.list[7].weather[0].description,
+    firstDay: response.data.list[7].dt * 1000,
         secondDayMax: Math.round(response.data.list[15].main.temp_max),
     secondDayMin: Math.round(response.data.list[15].main.temp_min),
     secondDayIcon: response.data.list[15].weather[0].icon,
@@ -50,14 +51,17 @@ export default function App() {
     thirdDayMin: Math.round(response.data.list[23].main.temp_min),
     thirdDayIcon: response.data.list[23].weather[0].icon,
     thirdDayDescription: response.data.list[23].weather[0].description,
+    thirdDay: response.data.list[23].dt * 1000,
         forthDayMax: Math.round(response.data.list[31].main.temp_max),
-    forthDayMin: Math.round(response.data.list[31].main.temp_min),
-    forthDayIcon: response.data.list[31].weather[0].icon,
-    forthDayDescription: response.data.list[31].weather[0].description,
+    fourthDayMin: Math.round(response.data.list[31].main.temp_min),
+    fourthDayIcon: response.data.list[31].weather[0].icon,
+    fourthDayDescription: response.data.list[31].weather[0].description,
+    fourthDay: response.data.list[31].dt * 1000,
         fifthDayMax: Math.round(response.data.list[39].main.temp_max),
     fifthDayMin: Math.round(response.data.list[39].main.temp_min),
     fifthDayIcon: response.data.list[39].weather[0].icon,
     fifthDayDescription: response.data.list[39].weather[0].description,
+    fifthDay: response.data.list[39].dt * 1000,
 
   });
 
@@ -174,11 +178,11 @@ function getLocalData(position) {
             <br />
             <WeatherAlert humidity={data.humidity} wind={data.wind} />
              <div className="row d-flex flex-nowrap">
-            <Forecast icon={forecastData.firstDayIcon} max={forecastData.firstDayMax} min={forecastData.firstDayMin} description={forecastData.firstDayDescription} day={forecastData.day} unit={unit}/>
+            <Forecast icon={forecastData.firstDayIcon} max={forecastData.firstDayMax} min={forecastData.firstDayMin} description={forecastData.firstDayDescription} day={forecastData.firstDay} unit={unit}/>
             <Forecast icon={forecastData.secondDayIcon} max={forecastData.secondDayMax} min={forecastData.secondDayMin} description={forecastData.secondDayDescription} day={forecastData.secondDay} unit={unit}/>
-            <Forecast icon={forecastData.thirdDayIcon} max={forecastData.thirdDayMax} min={forecastData.thirdDayMin} description={forecastData.thirdDayDescription} day={forecastData.day} unit={unit}/>
-            <Forecast icon={forecastData.forthDayIcon} max={forecastData.forthDayMax} min={forecastData.forthDayMin} description={forecastData.forthDayDescription} day={forecastData.day} unit={unit}/>
-            <Forecast icon={forecastData.fifthDayIcon} max={forecastData.fifthDayMax} min={forecastData.fifthDayMin} description={forecastData.fifthDayDescription} day={forecastData.day} unit={unit}/>
+            <Forecast icon={forecastData.thirdDayIcon} max={forecastData.thirdDayMax} min={forecastData.thirdDayMin} description={forecastData.thirdDayDescription} day={forecastData.thirdDay} unit={unit}/>
+            <Forecast icon={forecastData.fourthDayIcon} max={forecastData.fourthDayMax} min={forecastData.fourthDayMin} description={forecastData.fourthDayDescription} day={forecastData.fourthDay} unit={unit}/>
+            <Forecast icon={forecastData.fifthDayIcon} max={forecastData.fifthDayMax} min={forecastData.fifthDayMin} description={forecastData.fifthDayDescription} day={forecastData.fifthDay} unit={unit}/>
 
             </div>
           </div>
