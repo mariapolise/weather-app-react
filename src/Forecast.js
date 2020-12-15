@@ -2,7 +2,16 @@ import React from "react";
 import "./Forecast.css";
 
 export default function Forecast(props) {
-  let day = props.day;
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[props.day];
 
   if (props.unit==="celcius"){
   return (
@@ -30,7 +39,7 @@ export default function Forecast(props) {
         <div className="card">
           <div className="card-body">
             <span id="first-forecast" className="card-text">
-              {props.day}
+              {day}
               <br />
               <img src={`http://openweathermap.org/img/wn/${props.icon}@2x.png`} alt={props.description} className="icon" />
               <br />
